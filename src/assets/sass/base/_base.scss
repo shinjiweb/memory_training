@@ -1,0 +1,189 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%; // -> 10px;
+}
+
+body {
+  font-family: Montserrat, "游ゴシック", "Yu Gothic", "游ゴシック体", YuGothic,
+    "メイリオ", Meiryo, sans-serif;
+  font-size: $font-size-base;
+  color: $cr-font-base;
+  background-color: #f3f3f3;
+}
+
+img {
+  // 画像の縦横比を維持
+  height: auto;
+  max-width: 100%;
+  // 画像下やフッター下の隙間対策
+  vertical-align: top;
+}
+
+// リンクの初期化
+a {
+  color: inherit;
+  outline: none;
+  text-decoration: none;
+  // リンクホバー時の透過
+  // @include hoveropacity;
+}
+
+// リストの初期化
+ul,
+ol {
+  list-style: none;
+}
+
+// // フォームの初期化
+input,
+button,
+textarea,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+}
+
+// フォーカス時の初期化
+input,
+textarea,
+select {
+  &:focus {
+    outline: none;
+    border: 0;
+    box-shadow: none;
+  }
+}
+
+// テキストエリアの初期化
+textarea {
+  resize: horizontal;
+  font-family: inherit;
+}
+
+// チェックボックスの初期化
+input[type="checkbox"] {
+  display: none;
+
+  + span {
+    display: inline-block;
+    position: relative;
+    padding: 0 0 0 1.2em;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+
+    // 外枠
+    &::before {
+      position: absolute;
+      content: "";
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      background: #fff;
+      display: block;
+      width: 1em;
+      height: 1em;
+      border: 1px solid $cr-outline;
+      border-radius: 2px;
+    }
+  }
+
+  &:checked + span {
+    // チェックマーク
+    &::after {
+      position: absolute;
+      content: "";
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%) rotate(-45deg);
+      display: block;
+      margin-top: -0.2em;
+      width: 1em;
+      height: 0.6em;
+      border-left: 3px solid $cr-check;
+      border-bottom: 3px solid $cr-check;
+    }
+  }
+}
+
+// ラジオボタンの初期化
+input[type="radio"] {
+  display: none;
+
+  + span {
+    display: inline-block;
+    position: relative;
+    padding: 0 0 0 1.2em;
+    cursor: pointer;
+    // 外枠
+    &::before {
+      position: absolute;
+      content: "";
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      display: block;
+      width: 1em;
+      height: 1em;
+      background: #fff;
+      border: 1px solid $cr-outline;
+      border-radius: 50%;
+    }
+  }
+
+  &:checked + span {
+    // チェックマーク
+    &::after {
+      position: absolute;
+      content: "";
+      top: 50%;
+      left: 0.2em;
+      transform: translateY(-50%);
+      display: block;
+      width: 0.6em;
+      height: 0.6em;
+      background: $cr-check;
+      border-radius: 50%;
+    }
+  }
+}
+
+// セレクトボックスの初期化
+select {
+  cursor: pointer;
+
+  // IEのデフォルトの矢印非表示
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+// inputのボタンの初期化
+input[type="submit"] {
+  cursor: pointer;
+  border: 0;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    border: 0;
+  }
+
+  ::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+  }
+}

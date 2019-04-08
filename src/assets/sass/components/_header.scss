@@ -1,0 +1,26 @@
+.header {
+  display: flex;
+  justify-content: center;
+
+  &_inner {
+    margin-top: 40px;
+  }
+
+  &_title {
+    text-align: center;
+    font-size: 3rem;
+    color: $cr-green;
+    text-shadow: 1px 1px 1px $cr-black;
+  }
+
+  &_info {
+    margin-top: 10px;
+    text-align: right;
+    color: $cr-black;
+  }
+
+  &_vuejs {
+    color: $cr-green;
+    text-shadow: 1px 1px 1px $cr-black;
+  }
+}

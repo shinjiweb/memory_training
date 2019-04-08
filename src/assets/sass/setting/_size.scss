@@ -1,0 +1,10 @@
+// レイアウト幅
+$layout-width-inner: 1120px;
+$tab-min-size: 768px;
+
+// ブレークポイント（モバイルファースト）
+// defaultがスマホサイズ
+$breakpoints: (
+  "tab": "screen and (min-width: #{$tab-min-size})",
+  "pc": "screen and (min-width: #{$layout-width-inner})"
+);
