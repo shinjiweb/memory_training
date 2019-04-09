@@ -1,22 +1,24 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
     <Header />
-    <Buttons />
-    <Cards />
+    <div class="app_container">
+      <Cards />
+      <Modal />
+    </div>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
 import Cards from './components/Cards.vue'
-import Buttons from './components/Buttons.vue'
+import Modal from './components/Modal.vue'
 
 export default {
   name: 'app',
   components: {
     Header,
     Cards,
-    Buttons
+    Modal
   }
 }
 </script>
