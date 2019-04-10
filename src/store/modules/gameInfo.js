@@ -1,7 +1,7 @@
 import helper from '@/assets/common/helper'
 
 const state = {
-  lastStage: 10,
+  lastStage: 4,
   currentStage: 3,
   currentNumber: 1
 }
@@ -13,7 +13,7 @@ const getters = {
 }
 
 const actions = {
-// 判定
+  // 判定
   async judgeNumber ({ getters, dispatch, commit }, selectedcard) {
     // クリック防止
     if (!getters.getClickable) {
@@ -48,14 +48,7 @@ const actions = {
     await helper.delay(2000)
     await dispatch('closeAllNumber')
     commit('nextStage')
-    commit('resetCurrentNumber')
-    dispatch('resetCards')
-    await helper.delay(1000)
-    dispatch('openAllNumber')
-    let openTime = 3000 + ((getters.getCurrentStage - 3) * 200)
-    await helper.delay(openTime)
-    await dispatch('closeAllNumber')
-    commit('allowClick')
+    await dispatch('showNewNumbers')
   }
 }
 

@@ -66,6 +66,17 @@ const actions = {
     commit('closeAllNumber', closedCards)
     // アニメーション中に表示が変わるのを防ぐ
     await helper.delay(200)
+  },
+
+  async showNewNumbers ({ getters, dispatch, commit }) {
+    commit('resetCurrentNumber')
+    dispatch('resetCards')
+    await helper.delay(1000)
+    dispatch('openAllNumber')
+    let openTime = 3000 + ((getters.getCurrentStage - 3) * 200)
+    await helper.delay(openTime)
+    await dispatch('closeAllNumber')
+    commit('allowClick')
   }
 }
 

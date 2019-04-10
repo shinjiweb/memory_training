@@ -11,21 +11,10 @@
           <img src="@/assets/icon_x_mark.svg" alt="icon_x_mark" />
         </div>
         <div
-          class="cards_numberAndxMark"
-          v-else-if="card.number > getCurrentNumber"
-          key="number-and-x-mark"
-        >
-          <div class="cards_number">{{ card.number }}</div>
-          <img
-            class="cards_xMarkImg"
-            v-if="getClickable"
-            src="@/assets/icon_x_mark.svg"
-            alt="icon_x_mark"
-          />
-        </div>
-        <div
           class="cards_checkMark"
-          v-else-if="card.number === getCurrentStage"
+          v-else-if="
+            card.number === getCurrentNumber && card.number === getCurrentStage
+          "
           key="check-mark"
         >
           <img src="@/assets/icon_check_mark.svg" alt="icon_check_mark" />

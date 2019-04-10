@@ -33,28 +33,14 @@ const actions = {
   async retryGame ({ getters, dispatch, commit }) {
     dispatch('closeModal')
     await dispatch('closeAllNumber')
-    commit('resetCurrentNumber')
-    dispatch('resetCards')
-    await helper.delay(1000)
-    dispatch('openAllNumber')
-    let openTime = 3000 + ((getters.getCurrentStage - 3) * 200)
-    await helper.delay(openTime)
-    await dispatch('closeAllNumber')
-    commit('allowClick')
+    await dispatch('showNewNumbers')
   },
   async restart ({ getters, dispatch, commit }) {
     dispatch('closeModal')
     commit('incomplete')
     await dispatch('closeAllNumber')
-    commit('resetCurrentNumber')
     commit('resetCurrentStage')
-    dispatch('resetCards')
-    await helper.delay(1000)
-    dispatch('openAllNumber')
-    let openTime = 3000 + ((getters.getCurrentStage - 3) * 200)
-    await helper.delay(openTime)
-    await dispatch('closeAllNumber')
-    commit('allowClick')
+    await dispatch('showNewNumbers')
   }
 }
 
