@@ -1,6 +1,6 @@
 .header {
-  display: flex;
-  justify-content: center;
+  // display: flex;
+  // justify-content: center;
 
   &_inner {
     margin-top: 40px;
@@ -8,19 +8,24 @@
 
   &_title {
     text-align: center;
-    font-size: 3rem;
+    font-size: 3.8rem;
     color: $cr-green;
-    text-shadow: 1px 1px 1px $cr-black;
+    text-shadow: 1px 1px 1px lighten($cr-black, 20%);
+
+    @include mq("tab") {
+      font-size: 6.4rem;
+      margin-left: -10px;
+      text-shadow: 3px 3px 3px lighten($cr-black, 20%);
+    }
   }
 
   &_info {
     margin-top: 10px;
-    text-align: right;
+    text-align: center;
     color: $cr-black;
-  }
 
-  &_vuejs {
-    color: $cr-green;
-    text-shadow: 1px 1px 1px $cr-black;
+    @include mq("tab") {
+      font-size: 2rem;
+    }
   }
 }

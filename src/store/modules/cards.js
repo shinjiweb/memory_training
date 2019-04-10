@@ -1,16 +1,19 @@
+import helper from '@/assets/common/helper'
+
 const state = {
   cards: [],
   lastStage: 10,
   currentStage: 3,
   currentNumber: 1,
-  allOpend: false
+  clickable: false
 }
 
 const getters = {
   getCards: (state) => state.cards,
   getCurrentStage: (state) => state.currentStage,
   getCurrentNumber: (state) => state.currentNumber,
-  getAllOpend: (state) => state.allOpend
+  getClickable: (state) => state.clickable,
+  getLastStage: (state) => state.lastStage
 }
 
 const actions = {
@@ -41,21 +44,19 @@ const actions = {
   },
 
   // 判定
-  judgeNumber ({ getters, dispatch, commit }, selectedcard) {
+  async judgeNumber ({ getters, dispatch, commit }, selectedcard) {
     // クリック防止
-    if (state.allOpend) {
+    if (!state.clickable) {
       return
     }
-    console.log(selectedcard.number)
 
     dispatch('openSelectedCard', selectedcard)
 
+    // ゲームオーバー
     if (selectedcard.number !== state.currentNumber) {
-      console.log('gameover')
-
-      setTimeout(() => {
-        commit('openModal')
-      }, 1000)
+      commit('forbidClick')
+      await helper.delay(1000)
+      commit('openModal')
       return
     }
 
@@ -64,28 +65,27 @@ const actions = {
       return
     }
 
+    // ゲームクリア
     if (state.currentStage === state.lastStage) {
-      console.log('complete')
+      commit('forbidClick')
+      commit('complete')
+      await helper.delay(1000)
+      commit('openModal')
       return
     }
-    // クリック防止
+
+    commit('forbidClick')
+    await helper.delay(2000)
+    await dispatch('closeAllNumber')
+    commit('nextStage')
+    commit('resetCurrentNumber')
+    dispatch('resetCards')
+    await helper.delay(1000)
     dispatch('openAllNumber')
-    // TODO: Promiseでリファクタリング
-    setTimeout(() => {
-      dispatch('closeAllNumber')
-      // アニメーションの時差対策
-      setTimeout(() => {
-        commit('nextStage')
-        dispatch('resetCards')
-        setTimeout(() => {
-          dispatch('openAllNumber')
-          let openTime = 3000 + ((getters.getCurrentStage - 3) * 200)
-          setTimeout(() => {
-            dispatch('closeAllNumber')
-          }, openTime)
-        }, 1000)
-      }, 200)
-    }, 2000)
+    let openTime = 3000 + ((getters.getCurrentStage - 3) * 200)
+    await helper.delay(openTime)
+    await dispatch('closeAllNumber')
+    commit('allowClick')
   },
 
   // カードオープン
@@ -108,13 +108,15 @@ const actions = {
   },
 
   // 全部閉じる
-  closeAllNumber ({ commit }) {
+  async closeAllNumber ({ commit }) {
     // シャロ―コピー
     const closedCards = state.cards.slice(0)
     for (let card of closedCards) {
       card.isOpen = false
     }
     commit('closeAllNumber', closedCards)
+    // アニメーション中に表示が変わるのを防ぐ
+    await helper.delay(200)
   }
 }
 
@@ -125,22 +127,13 @@ const mutations = {
     state.cards.splice(selectedcard.id, 1, selectedcard)
   },
   countUp: (state) => state.currentNumber++,
-  nextStage: (state) => {
-    state.currentStage++
-    state.currentNumber = 1
-  },
-  openAllNumber: (state, opendCards) => {
-    state.allOpend = true
-    state.cards = opendCards
-  },
-  closeAllNumber: (state, closedCards) => {
-    state.cards = closedCards
-    // アニメーションの時差対策
-    setTimeout(() => {
-      state.allOpend = false
-    }, 200)
-    // TODO: allOpendの値を変えるだけのmutationsも欲しい
-  }
+  nextStage: (state) => state.currentStage++,
+  resetCurrentNumber: (state) => (state.currentNumber = 1),
+  resetCurrentStage: (state) => (state.currentStage = 3),
+  openAllNumber: (state, opendCards) => (state.cards = opendCards),
+  closeAllNumber: (state, closedCards) => (state.cards = closedCards),
+  allowClick: (state) => (state.clickable = true),
+  forbidClick: (state) => (state.clickable = false)
 }
 
 export default {

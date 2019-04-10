@@ -3,8 +3,8 @@
     <li
       class="cards_item"
       v-on:click="judgeNumber(card)"
-      v-for="card in getCards"
-      :key="card.id"
+      v-for="(card, index) in getCards"
+      :key="index"
     >
       <div class="cards_open" v-bind:class="{ 'js-isOpen': card.isOpen }">
         <div class="cards_xMark" v-if="card.number === 0" key="x-mark">
@@ -18,7 +18,7 @@
           <div class="cards_number">{{ card.number }}</div>
           <img
             class="cards_xMarkImg"
-            v-if="!getAllOpend"
+            v-if="getClickable"
             src="@/assets/icon_x_mark.svg"
             alt="icon_x_mark"
           />
@@ -34,9 +34,13 @@
           {{ card.number }}
         </div>
       </div>
-      <div class="cards_close" v-bind:class="{ 'js-isOpen': card.isOpen }">
-        {{ card.number }}
-      </div>
+      <div
+        class="cards_close"
+        v-bind:class="{
+          'js-isOpen': card.isOpen,
+          'js-clickable': getClickable
+        }"
+      ></div>
     </li>
   </ul>
 </template>
@@ -50,7 +54,7 @@ export default {
       'getCards',
       'getCurrentNumber',
       'getCurrentStage',
-      'getAllOpend'
+      'getClickable'
     ])
   },
   methods: {

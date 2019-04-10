@@ -10,7 +10,6 @@
     position: relative;
     perspective: 150rem;
     width: 100%;
-    cursor: pointer;
 
     &::before {
       content: "";
@@ -34,8 +33,11 @@
       transform: rotateY(-180deg);
     }
 
-    &:hover {
-      background-color: lighten($color: $cr-green, $amount: 15%);
+    &.js-clickable {
+      &:hover {
+        cursor: pointer;
+        background-color: lighten($color: $cr-green, $amount: 15%);
+      }
     }
   }
 
@@ -61,7 +63,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 40px;
+    font-size: 4rem;
+
+    @include mq("tab") {
+      font-size: 6rem;
+    }
   }
 
   &_numberAndxMark {

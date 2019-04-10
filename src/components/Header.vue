@@ -3,7 +3,7 @@
     <div class="header_inner">
       <h1 class="header_title">Memory Training</h1>
       <div class="header_info">
-        created with <span class="header_vuejs">Vue.js</span>
+        created with Vue.js
       </div>
     </div>
   </header>
