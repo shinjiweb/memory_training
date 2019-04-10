@@ -16,9 +16,11 @@ const actions = {
   closeModal ({ commit }) {
     commit('closeModal')
   },
+
   openModal ({ commit }) {
     commit(' openModal')
   },
+
   async startGame ({ getters, dispatch, commit }) {
     dispatch('closeModal')
     commit('started')
@@ -30,11 +32,13 @@ const actions = {
     await dispatch('closeAllNumber')
     commit('allowClick')
   },
+
   async retryGame ({ getters, dispatch, commit }) {
     dispatch('closeModal')
     await dispatch('closeAllNumber')
     await dispatch('showNewNumbers')
   },
+
   async restart ({ getters, dispatch, commit }) {
     dispatch('closeModal')
     commit('incomplete')

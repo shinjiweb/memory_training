@@ -1,7 +1,7 @@
 import helper from '@/assets/common/helper'
 
 const state = {
-  lastStage: 4,
+  lastStage: 10,
   currentStage: 3,
   currentNumber: 1
 }
@@ -44,6 +44,7 @@ const actions = {
       return
     }
 
+    // 次のステージに移動
     commit('forbidClick')
     await helper.delay(2000)
     await dispatch('closeAllNumber')
